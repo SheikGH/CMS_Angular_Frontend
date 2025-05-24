@@ -1,0 +1,73 @@
+<!-- src/app/components/customer-list/customer-list.component.html -->
+<div class="table-container">
+  <div class="toolbar">
+    <mat-form-field appearance="outline" style="width: 500px; margin-bottom: 10px;">
+      <mat-label>Search</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Search customers">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="openAddDialog()">Add Customer</button>
+  </div>
+  <!-- <mat-spinner *ngIf="loading" diameter="50"></mat-spinner> -->
+  <div *ngIf="loading" style="text-align:center;">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <div *ngIf="!loading">
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+      <!-- Index Column -->
+      <ng-container matColumnDef="index">
+        <th mat-header-cell *matHeaderCellDef>No.</th>
+        <td mat-cell *matCellDef="let element; let i = index">
+          {{ getGlobalIndex(i) }}
+        </td>
+      </ng-container>
+
+      <!-- First Name Column -->
+      <ng-container matColumnDef="firstName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
+        <td mat-cell *matCellDef="let customer">{{ customer.firstName }}</td>
+      </ng-container>
+
+      <!-- Last Name Column -->
+      <ng-container matColumnDef="lastName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
+        <td mat-cell *matCellDef="let customer">{{ customer.lastName }}</td>
+      </ng-container>
+
+      <!-- Email Column -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+        <td mat-cell *matCellDef="let customer">{{ customer.email }}</td>
+      </ng-container>
+
+      <!-- Phone Column -->
+      <ng-container matColumnDef="phone">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Phone</th>
+        <td mat-cell *matCellDef="let customer">{{ customer.phone }}</td>
+      </ng-container>
+
+      <!-- Address Column -->
+      <ng-container matColumnDef="address">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Address</th>
+        <td mat-cell *matCellDef="let customer">{{ customer.address }}</td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let customer">
+          <button mat-icon-button color="accent" (click)="openEditDialog(customer)"><mat-icon>edit</mat-icon></button>
+          <button mat-icon-button color="warn"
+            (click)="deleteCustomer(customer.customerId)"><mat-icon>delete</mat-icon></button>
+        </td>
+      </ng-container>
+
+      <!-- Header and Row Declarations -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+  </div>
+  <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>

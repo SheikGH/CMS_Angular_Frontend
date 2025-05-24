@@ -1,0 +1,9 @@
+mat-card {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+  }
+  .field {
+    margin: 12px 0;
+    font-size: 16px;
+  }

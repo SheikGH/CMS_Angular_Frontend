@@ -21,7 +21,14 @@
     "lib": [
       "ES2022",
       "dom"
-    ]
+    ],
+    "baseUrl": "src", 
+    "paths": {
+      "@core": ["app/core/index.ts"],
+      "@shared": ["app/shared/index.ts"],
+      "@auth": ["app/features/auth/index.ts"],
+      "@customer": ["app/features/customer/index.ts"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

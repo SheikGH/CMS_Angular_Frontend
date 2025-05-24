@@ -1,0 +1,196 @@
+<!-- <form [formGroup]="customerForm" (ngSubmit)="onSubmit()" class="customer-form">
+  <div class="form-grid">
+    Left column 
+    <div class="column">
+      <mat-form-field appearance="fill">
+        <mat-label>Customer ID</mat-label>
+        <input matInput formControlName="customerId">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstName">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastName">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email">
+      </mat-form-field>
+    </div>
+
+     Right column 
+    <div class="column">
+      <mat-form-field appearance="fill">
+        <mat-label>Phone</mat-label>
+        <input matInput formControlName="phone">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Address</mat-label>
+        <input matInput formControlName="address">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Confirm Password</mat-label>
+        <input matInput type="password" formControlName="confirmPassword">
+      </mat-form-field>
+
+      <div class="error" *ngIf="customerForm.hasError('passwordMismatch')">
+        Passwords do not match.
+      </div>
+    </div>
+  </div>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="customerForm.invalid">Submit</button>
+</form> -->
+
+
+<!-- <app-customer-list></app-customer-list> -->
+<div class="toolbar">
+  <mat-form-field appearance="outline">
+    <mat-label>Search</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Search customers">
+  </mat-form-field>
+</div>
+<mat-spinner *ngIf="loading" diameter="50"></mat-spinner>
+
+<mat-list *ngIf="!loading">
+  <!-- <table mat-table [dataSource]="customers" class="mat-elevation-z8"> -->
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+     <!-- Index Column -->
+     <ng-container matColumnDef="index">
+      <th mat-header-cell *matHeaderCellDef>No.</th>
+      <td mat-cell *matCellDef="let element; let i = index">
+        {{ i + 1 }}
+      </td>
+    </ng-container>
+
+    <!-- First Name Column -->
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
+      <td mat-cell *matCellDef="let customer">{{ customer.firstName }}</td>
+    </ng-container>
+
+    <!-- Last Name Column -->
+    <ng-container matColumnDef="lastName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
+      <td mat-cell *matCellDef="let customer">{{ customer.lastName }}</td>
+    </ng-container>
+
+    <!-- Email Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+      <td mat-cell *matCellDef="let customer">{{ customer.email }}</td>
+    </ng-container>
+
+    <!-- Phone Column -->
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Phone</th>
+      <td mat-cell *matCellDef="let customer">{{ customer.phone }}</td>
+    </ng-container>
+
+    <!-- Address Column -->
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Address</th>
+      <td mat-cell *matCellDef="let customer">{{ customer.address }}</td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let customer">
+        <button mat-icon-button (click)="onEdit(customer)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button [routerLink]="['/customer/detail', customer.customerId]">
+          <mat-icon>description</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="onDelete(customer.customerId)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</mat-list>
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+<form [formGroup]="customerForm" (ngSubmit)="onSubmit()" class="form">
+  <input matInput formControlName="customerId" style="visibility: hidden;">
+
+  <mat-form-field appearance="outline">
+    <mat-label>First Name</mat-label>
+    <input matInput formControlName="firstName">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Last Name</mat-label>
+    <input matInput formControlName="lastName">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Phone</mat-label>
+    <input matInput formControlName="phone">
+
+    <mat-error *ngIf="customerForm.get('phone')?.hasError('required')">
+      Phone number is required.
+    </mat-error>
+
+    <mat-error *ngIf="customerForm.get('phone')?.hasError('pattern')">
+      Only digits are allowed (10 digits).
+    </mat-error>
+
+    <mat-error *ngIf="customerForm.get('phone')?.hasError('minlength')">
+      Phone number must be at least 10 digits.
+    </mat-error>
+
+    <mat-error *ngIf="customerForm.get('phone')?.hasError('maxlength')">
+      Phone number must be no more than 10 digits.
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Address</mat-label>
+    <input matInput formControlName="address">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" *ngIf="!isEdit">
+    <mat-label>Password</mat-label>
+    <input matInput type="password" formControlName="password">
+    <mat-error *ngIf="customerForm.get('password')?.hasError('required')">
+      Password is required
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" *ngIf="!isEdit">
+    <mat-label>Confirm Password</mat-label>
+    <input matInput type="password" formControlName="confirmPassword">
+    <mat-error *ngIf="customerForm.get('confirmPassword')?.hasError('required')">
+      Confirm Password is required
+    </mat-error>
+    <mat-error *ngIf="customerForm.hasError('mismatch')">
+      Passwords do not match
+    </mat-error>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit">
+    {{ isEdit ? 'Update' : 'Create' }}
+  </button>
+  <button mat-button type="button" (click)="resetForm()">Reset</button>
+</form>

@@ -1,0 +1,118 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* html, body { height: 100%; } */
+
+/* Make html and body take full height */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* Main app container takes full height */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  /* full viewport height */
+}
+
+/* Main content grows to take space */
+.content {
+  flex: 1;
+  padding: 16px;
+  /* optional padding */
+}
+
+/* Footer spans full width */
+app-footer,
+.footer-toolbar {
+  width: 100%;
+  position: relative;
+}
+
+/* .content {
+  display: flex;
+  flex-direction: column;
+  min-height: 50vh;
+  flex: 1 0 auto;
+  overflow-y: auto; /* Optional: add scrolling if content overflows 
+
+} */
+
+mat-spinner {
+  text-align: center;
+}
+.mat-mdc-progress-spinner {
+  text-align: center;
+}
+/* Notification */
+.snack-success {
+  background-color: #4caf50 !important;
+  color: white;
+}
+
+.snack-error {
+  background-color: #f44336 !important;
+  color: white;
+}
+
+.snack-info {
+  background-color: #2196f3 !important;
+  color: white;
+}
+
+.snack-warn {
+  background-color: #ff9800 !important;
+  color: white;
+}
+/* styles.css or styles.scss (GLOBAL STYLES ONLY) */
+/* styles.scss */
+.cdk-overlay-pane.snack-error .mat-mdc-snack-bar-container {
+  --mdc-snackbar-container-color: #f44336;
+  --mdc-snackbar-supporting-text-color: #fff;
+}
+
+.snack-error .mat-mdc-snack-bar-container {
+  --mdc-snackbar-container-color: #f44336 !important; /* Red */
+  --mdc-snackbar-supporting-text-color: white !important;
+}
+
+.snack-success .mat-mdc-snack-bar-container {
+  --mdc-snackbar-container-color: #4caf50 !important; /* Green */
+  --mdc-snackbar-supporting-text-color: white !important;
+}
+
+.snack-info .mat-mdc-snack-bar-container {
+  --mdc-snackbar-container-color: #2196f3 !important; /* Blue */
+  --mdc-snackbar-supporting-text-color: white !important;
+}
+
+.snack-warn .mat-mdc-snack-bar-container {
+  --mdc-snackbar-container-color: #ff9800 !important; /* Orange */
+  --mdc-snackbar-supporting-text-color: black !important;
+}
+
+.snack-success .mat-mdc-snack-bar-container .mat-mdc-snackbar-surface {
+  --mdc-snackbar-container-color: #4caf50;  /* Green */
+  --mdc-snackbar-supporting-text-color: white;
+}
+
+.snack-error .mat-mdc-snack-bar-container .mat-mdc-snackbar-surface {
+  --mdc-snackbar-container-color: #f44336;  /* Red */
+  --mdc-snackbar-supporting-text-color: white;
+}
+
+.snack-warning .mat-mdc-snack-bar-container .mat-mdc-snackbar-surface {
+  --mdc-snackbar-container-color: #ff9800;  /* Orange */
+  --mdc-snackbar-supporting-text-color: black;
+}
+/* .mat-mdc-snack-bar-container .mat-mdc-snackbar-surface */

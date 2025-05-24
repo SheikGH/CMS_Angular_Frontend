@@ -1,0 +1,27 @@
+<div class="login-container">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username" required />
+      <mat-error *ngIf="loginForm.get('username')?.hasError('required')">Username/Email is required.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="password" type="password" required />
+      <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+        Password is required
+      </mat-error>
+      <mat-error *ngIf="loginForm.get('password')?.hasError('minlength')">
+        Minimum 6 characters
+      </mat-error>
+    </mat-form-field>
+    <div class="button-group">
+      <button mat-raised-button color="primary" type="submit">Login</button>
+      <a mat-raised-button color="default" routerLink="/register" routerLinkAction="active-link">Register</a>
+    </div>
+    <div *ngIf="isLoginFailed" class="error-message">
+      {{ errorMessage }}
+    </div>
+  </form>
+</div>

@@ -1,0 +1,20 @@
+<mat-toolbar color="primary" class="toolbar">
+    <span class="title">Customer Management System</span>
+  
+    <span class="spacer"></span>
+    <nav class="nav-links">
+      <a mat-button routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+      <a mat-button routerLink="/login" routerLinkActive="active-link">Login</a>
+      <a mat-button routerLink="/register" routerLinkActive="active-link">Register</a>
+      <a mat-button routerLink="/customer" routerLinkActive="active-link">Customer</a>
+      <a mat-button routerLink="/customer/list" routerLinkActive="active-link">Customer List</a>
+      <!-- <a mat-button routerLink="/customers/add" routerLinkActive="active-link">Customer Add</a>
+      <a mat-button routerLink="/customers/edit/1" routerLinkActive="active-link">Customer Edit</a> -->
+    </nav>
+    <span class="spacer"></span>
+    <div *ngIf="username"  class="user-section">
+      <span class="welcome">Welcome: {{ username }}</span>
+      <button mat-button color="accent" (click)="logout()">Logout</button>
+    </div>
+  </mat-toolbar>
+  

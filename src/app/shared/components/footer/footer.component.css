@@ -1,0 +1,16 @@
+.footer-toolbar {
+  /* margin-top: 8rem; */
+  /* flex-shrink: 0; */
+  background-color: #3f51b5;
+  /* Change this to any color of your choice */
+  color: white;
+  /* Ensure the text is visible on your background */
+  justify-content: center;
+  text-align: center;
+  /* Center the text horizontally */
+  position: relative;
+  /* Optional: fix it at the bottom of the screen */
+  bottom: 0;
+  width: 100%;
+}
+

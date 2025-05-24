@@ -1,0 +1,19 @@
+/* src/app/components/customer-table/customer-table.component.css */
+.table-container {
+    margin: 20px;
+  }
+  
+  mat-form-field {
+    width: 80%;
+    margin-bottom: 20px;
+    margin-right: 20px;
+  }
+  
+  table {
+    width: 100%;
+  }
+  .toolbar {
+    flex-direction: column;
+    /* display: flex; */
+    gap: 16px;
+  }

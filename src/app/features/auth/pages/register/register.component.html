@@ -1,0 +1,63 @@
+<div class="login-container">
+  <form [formGroup]="customerForm" (ngSubmit)="onSubmit()" class="form">
+    <input matInput formControlName="customerId" style="visibility: hidden;">
+
+    <div class="form-grid">
+      <!-- Left column -->
+      <div class="column">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>First Name</mat-label>
+          <input matInput formControlName="firstName">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Last Name</mat-label>
+          <input matInput formControlName="lastName">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email">
+          <mat-error *ngIf="customerForm.get('email')?.hasError('required')">Email is required.</mat-error>
+          <mat-error *ngIf="customerForm.get('email')?.hasError('email')">invalid Email.</mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Right column -->
+      <div class="column">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Phone</mat-label>
+          <input matInput formControlName="phone">
+          <mat-error *ngIf="customerForm.get('phone')?.hasError('required')">Phone number is required.</mat-error>
+          <mat-error *ngIf="customerForm.get('phone')?.hasError('pattern')">Only digits are allowed (10 digits).</mat-error>
+          <mat-error *ngIf="customerForm.get('phone')?.hasError('minlength')">Phone number must be at least 10 digits.</mat-error>
+          <mat-error *ngIf="customerForm.get('phone')?.hasError('maxlength')">Phone number must be no more than 10 digits.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Address</mat-label>
+          <input matInput formControlName="address">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password">
+          <mat-error *ngIf="customerForm.get('password')?.hasError('required')">Password is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Confirm Password</mat-label>
+          <input matInput type="password" formControlName="confirmPassword">
+          <mat-error *ngIf="customerForm.get('confirmPassword')?.hasError('required')">Confirm Password is required</mat-error>
+          <mat-error *ngIf="customerForm.hasError('mismatch')">Passwords do not match</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="button-group">
+      <button mat-raised-button color="primary" type="submit">Register</button>
+      <button mat-button type="button" (click)="resetForm()">Reset</button>
+    </div>
+  </form>
+</div>
